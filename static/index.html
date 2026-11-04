@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>📝 Blog</h1>
+    <div class="auth">
+      <span id="userBadge" class="badge hidden"></span>
+      <button id="authBtn" class="btn">Login</button>
+      <button id="logoutBtn" class="btn btn-ghost hidden">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="authSection" class="card">
+      <h2 id="authTitle">Login / Register</h2>
+      <form id="authForm">
+        <input id="username" type="text" placeholder="Username" required />
+        <input id="email" type="email" placeholder="Email" required />
+        <input id="password" type="password" placeholder="Password" required />
+        <div class="row">
+          <button type="submit" id="authSubmit" class="btn">Login</button>
+          <button type="button" id="toggleMode" class="link">Switch to Register</button>
+        </div>
+      </form>
+      <p id="authError" class="error hidden"></p>
+    </section>
+
+    <section id="postEditor" class="card hidden">
+      <h2>New Post</h2>
+      <form id="postForm">
+        <input id="postTitle" type="text" placeholder="Title" required />
+        <textarea id="postContent" placeholder="Write your post..." required></textarea>
+        <button type="submit" class="btn">Publish</button>
+      </form>
+    </section>
+
+    <section id="postsSection">
+      <h2>Posts</h2>
+      <div id="postList" class="post-list"></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
