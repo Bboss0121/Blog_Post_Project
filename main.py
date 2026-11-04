@@ -1,18 +1,23 @@
 from fastapi import FastAPI
-app = FastAPI()
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+import models
+from database import engine
+
+models.Base.metadata.create_all(bind=engine)
+
+from routes.auth import router as auth_router
+from routes.posts import router as posts_router
+
+app = FastAPI(title="Blog API")
+
+app.include_router(auth_router, prefix="/api/v1")
+app.include_router(posts_router, prefix="/api/v1")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 @app.get("/")
 def home():
-  return{"message":"hello Blog APP"}
-
-
-@app.get("/about")
-def about():
-  return{"about":"about page"}
-
-@app.get("/post/{post_id}")
-def get_post(post_id:int):
-  return{"post_id":post_id}
-
-@app.get("/posts")
-def lists_post(limit:int =10):
- return{"limit":limit}
+    return FileResponse("static/index.html")
