@@ -1,11 +1,18 @@
+import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 import bcrypt
 from jose import jwt
 
-SECRET_KEY = "change-this-secret-in-production-please"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
+
+if not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY environment variable is not set. "
+        "Generate one with: python -c 'import secrets; print(secrets.token_hex(32))'"
+    )
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
